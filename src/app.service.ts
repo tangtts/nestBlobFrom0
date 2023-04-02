@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import { CreateDto } from './dto';
 
 @Injectable()
 export class AppService {
-  getHello(): string {
+  getHello(query: CreateDto): string {
     return 'Hello World!';
   }
 }
