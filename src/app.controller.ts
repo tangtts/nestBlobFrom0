@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpStatus, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, HttpStatus, Post, Query } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AppService } from './app.service';
 import { CreateDto } from './dto';
@@ -18,6 +18,7 @@ export class AppController {
   type:CreateDto
  })
   getHello(@Body() query:CreateDto): string {
+    throw new HttpException("自定义异常",HttpStatus.NOT_IMPLEMENTED)
     return this.appService.getHello(query);
   }
 }

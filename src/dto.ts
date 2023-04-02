@@ -11,6 +11,6 @@ export class CreateDto {
   password:string
 
   @ApiProperty({example:"email"})
-  @IsEmail()
+  // @IsEmail()
   email:string
 }
