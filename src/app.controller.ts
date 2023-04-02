@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpStatus, Query } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Post, Query } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AppService } from './app.service';
 import { CreateDto } from './dto';
@@ -7,7 +7,7 @@ import { CreateDto } from './dto';
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
-  @Get()
+  @Post()
   @ApiOperation({
     summary:"getHello"
   })
