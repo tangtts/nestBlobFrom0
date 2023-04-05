@@ -2,7 +2,7 @@ import { Body, Controller, Get, HttpException, HttpStatus, Post, Query } from '@
 import { ConfigService } from '@nestjs/config';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from './dto/user.dto';
-import { UserService } from './user.service';
+import { UserService } from './services/user.service';
 
 
 @ApiTags("用户块")
@@ -24,4 +24,20 @@ export class UserController {
     throw new HttpException("自定义异常",HttpStatus.NOT_IMPLEMENTED)
     // return this.userService.getHello(query);
   }
+
+  @Post("/createOne")
+  @ApiOperation({
+    summary:"创建用户"
+  })
+  create(){
+   return this.userService.create({})
+  }
+  @Get("/findAll")
+  @ApiOperation({
+    summary:"查找所有用户"
+  })
+  findAll(){
+   return this.userService.fineAll()
+  }
+
 }
