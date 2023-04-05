@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import {IsEmail, IsNotEmpty, Length, length, Matches} from "class-validator"
+import { Common } from "src/shared/entities/common.entity";
 export class CreateUserDto {
   @ApiProperty({example:"123"})
   @Matches(/\d{9,}/g,{message:"请输入正确的手机号"})

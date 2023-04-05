@@ -1,7 +1,8 @@
+import { ParginationParamsDto } from './../shared/dtos/pagination-params.dto';
 import { Body, Controller, Get, HttpException, HttpStatus, Post, Query } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CreateUserDto } from './dto/user.dto';
+import { CreateUserDto } from './dto/create-user.dto';
 import { UserService } from './services/user.service';
 
 
@@ -32,12 +33,18 @@ export class UserController {
   create(){
    return this.userService.create({})
   }
+
   @Get("/findAll")
   @ApiOperation({
-    summary:"查找所有用户"
+    summary:"查找所有用户",
+    description:"有查询条件的查找所有用户"
   })
-  findAll(){
-   return this.userService.fineAll()
+  async findAll(@Query() query:ParginationParamsDto){
+  const {data,count} =  await this.userService.findAll(query);
+   return {
+    data,
+    meta:{total:count}
+   }
   }
 
 }

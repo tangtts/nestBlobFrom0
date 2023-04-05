@@ -1,3 +1,4 @@
+import { ParginationParamsDto } from './../../shared/dtos/pagination-params.dto';
 import { UserRole } from './../entities/user.mongo.entity';
 import { Inject } from "@nestjs/common";
 import { SystemService } from "src/shared/system.service";
@@ -34,11 +35,18 @@ export class UserService {
     return this.userRepository.save({
       name:"aaa",
       email:"aaa",
-      phoneNumber:"123",
-      role:UserRole.ADMIN
+      phoneNumber:"123"
     })
   }
-  fineAll(){
-    return this.userRepository.findAndCount({})
+ async findAll({pageNum,pageSize}:ParginationParamsDto):Promise<{data:User[],count:number}>{
+    const [data,count] = await this.userRepository.findAndCount({
+      skip:(pageNum-1) * pageSize,
+      take:pageSize * 1,  // 必须乘以 1
+      cache:true
+    });
+    return {
+      data,
+      count
+    }
   }
  }

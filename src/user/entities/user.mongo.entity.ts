@@ -10,6 +10,7 @@ import {
   OneToOne,
 } from "typeorm";
 import { ObjectId } from "mongoose";
+import { Common } from "src/shared/entities/common.entity";
 // import { Role } from './role.mongo.entity';
 // import { Common } from '@/shared/entities/common.entity';
 export enum UserRole {
@@ -18,7 +19,7 @@ export enum UserRole {
   GHOST = "ghost",
 }
 @Entity()
-export class User {
+export class User extends Common{
   @ObjectIdColumn()
   id: ObjectId;
   // 昵称
@@ -37,10 +38,6 @@ export class User {
   @Column()
   password: string;
 
-  @Column({
-    type: "enum",
-    enum: UserRole,
-    default: UserRole.GHOST,
-  })
-  role: UserRole;
+  @Column()
+  role: ObjectId;
 }

@@ -10,7 +10,6 @@ export class AppLogger {
   }
 
   constructor( private readonly configService:ConfigService) {
-
     // console.log(this.configService.get("database"))
 
     this.logger = createLogger({
