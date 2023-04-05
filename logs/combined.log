@@ -1,0 +1,16 @@
+{
+  message: 'user',
+  contextName: 'UserService',
+  ctx: null,
+  a: 13213,
+  level: 'info',
+  timestamp: '2023-04-05T08:08:12.075Z'
+}
+{
+  message: 'user error',
+  contextName: 'UserService',
+  ctx: null,
+  a: 13213,
+  level: 'info',
+  timestamp: '2023-04-05T08:09:03.527Z'
+}
