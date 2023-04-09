@@ -1,9 +1,9 @@
 import { ApiProperty } from "@nestjs/swagger";
-import {IsEmail, IsNotEmpty, Length, length, Matches} from "class-validator"
-import { Common } from "src/shared/entities/common.entity";
+import { IsEmail, IsNotEmpty, IsOptional, IsPhoneNumber, isPhoneNumber, IsString, Length, Matches} from "class-validator"
 export class CreateUserDto {
-  @ApiProperty({example:"123"})
-  @Matches(/\d{9,}/g,{message:"请输入正确的手机号"})
+  @ApiProperty({example:"18623816693"})
+  @IsPhoneNumber("CN")
+  // @Matches(/\d{9,}/g,{message:"请输入正确的手机号"})
   phoneNumber:string;
 
   @ApiProperty({example:"password"})
@@ -11,7 +11,11 @@ export class CreateUserDto {
   @Length(6,10)
   password:string
 
-  @ApiProperty({example:"email"})
-  // @IsEmail()
+  @ApiProperty({example:"2939118014@qq.com"})
+  @IsEmail()
   email:string
+
+  @IsOptional()
+  @IsString()
+  salt:string
 }

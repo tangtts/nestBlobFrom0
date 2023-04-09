@@ -1,9 +1,9 @@
+import { CreateUserDto } from './user/dto/create-user.dto';
 import { Injectable } from '@nestjs/common';
-import { CreateDto } from './dto';
 
 @Injectable()
 export class AppService {
-  getHello(query: CreateDto): string {
+  getHello(query: CreateUserDto): string {
     return 'Hello World!';
   }
 }

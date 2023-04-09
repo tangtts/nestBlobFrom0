@@ -1,3 +1,4 @@
+import { CreateUserDto } from './../dto/create-user.dto';
 import { ParginationParamsDto } from './../../shared/dtos/pagination-params.dto';
 import { UserRole } from './../entities/user.mongo.entity';
 import { Inject } from "@nestjs/common";
@@ -5,6 +6,7 @@ import { SystemService } from "src/shared/system.service";
 import { MongoRepository } from "typeorm";
 import { User } from "../entities/user.mongo.entity";
 import { AppLogger } from 'src/shared/logger/logger.service';
+import { encrytPassword, makeSalt } from 'src/shared/utils/cryptogram.util';
 
 
 export class UserService {
@@ -20,24 +22,22 @@ export class UserService {
       this.logger.setContext(UserService.name)
   }
 
-  create(createUserDto) {
-
-    // 追加调用模块
-    // console.log(this.systemService.getEnv())
-    this.logger.info(null,'user error',{
-      a:13213
-    })
-
-    this.logger.debug(null,'user error',{
-      a:1
-    })
-    // 调用Modle
-    return this.userRepository.save({
-      name:"aaa",
-      email:"aaa",
-      phoneNumber:"123"
-    })
+  create(user:CreateUserDto) {
+    if(user.password){
+      const {salt,hashPassword} = this.getPassword(user.password);
+      user.salt = salt;
+      user.password = hashPassword
+    }
+    return this.userRepository.save(user)
   }
+
+
+getPassword(password){
+  const salt = makeSalt();
+  const hashPassword = encrytPassword(password,salt)
+  return {salt,hashPassword}
+}
+
  async findAll({pageNum,pageSize}:ParginationParamsDto):Promise<{data:User[],count:number}>{
     const [data,count] = await this.userRepository.findAndCount({
       skip:(pageNum-1) * pageSize,
@@ -48,5 +48,9 @@ export class UserService {
       data,
       count
     }
+  }
+
+  async getUser(id:string){
+    return await this.userRepository.findOneBy(id)
   }
  }

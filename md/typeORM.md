@@ -49,7 +49,7 @@ export const DatabaseProviders:Provider[] = [
  
 3.  在 `user` 中定义 实体类 `entities/user.mongo.entity.ts`
 ```js
-   @Entity()
+@Entity()
 export class User {
   @ObjectIdColumn()
   id: ObjectId;
@@ -71,7 +71,7 @@ export class User {
 ```
 4. 定义 `user.providers` 
 ```js
-    import { Provider } from "@nestjs/common";
+import { Provider } from "@nestjs/common";
 import { DataSource } from "typeorm";
 import { User  } from "./entities/user.mongo.entity";
 export const UserProviders: Provider[] = [

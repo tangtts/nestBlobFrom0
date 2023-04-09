@@ -1,7 +1,7 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Post, Query } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Get, HttpException, HttpStatus, Param, Post, Query } from '@nestjs/common';
+import { ApiBearerAuth, ApiHeader, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AppService } from './app.service';
-import { CreateDto } from './dto';
+import { CreateUserDto } from './user/dto/create-user.dto';
 
 @ApiTags("初始化")
 @Controller()
@@ -11,14 +11,20 @@ export class AppController {
   @ApiOperation({
     summary:"getHello"
   })
-  @ApiBearerAuth()
+ @ApiBearerAuth()
  @ApiResponse({
   status:HttpStatus.CREATED,
   description:"getHello",
-  type:CreateDto
+  type:  CreateUserDto
  })
-  getHello(@Body() query:CreateDto): string {
+  getHello(@Body() query:CreateUserDto): string {
     throw new HttpException("自定义异常",HttpStatus.NOT_IMPLEMENTED)
     return this.appService.getHello(query);
   }
+
+
+
+
+
+
 }

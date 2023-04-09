@@ -1,7 +1,6 @@
 import { INestApplication } from "@nestjs/common";
 import {SwaggerModule,DocumentBuilder } from "@nestjs/swagger";
 import * as packageConfig from "../package.json"
-
 /**
  * 
  * @param app 创建文档
