@@ -4,7 +4,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { SharedModule } from "./shared/shared.module";
 import { UserModule } from "./user/user.module";
 import { UserService } from "./user/services/user.service";
-import { UserController } from "./user/user.controller";
+import { UserController } from "./user/controllers/user.controller";
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { AppController } from "./app.controller";

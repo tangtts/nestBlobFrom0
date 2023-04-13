@@ -1,7 +1,7 @@
 import { Body, Controller, Get, HttpException, HttpStatus, Param, Post, Query } from '@nestjs/common';
 import { ApiBearerAuth, ApiHeader, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AppService } from './app.service';
-import { CreateUserDto } from './user/dto/create-user.dto';
+import { CreateUserDto } from './user/dtos/create-user.dto';
 
 @ApiTags("初始化")
 @Controller()

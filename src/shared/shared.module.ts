@@ -1,3 +1,4 @@
+import { UploadService } from './../upload/upload.service';
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { configModuleOptions } from "./configs/module-options";
@@ -7,9 +8,12 @@ import {SystemService} from "./system.service"
 @Module({
   imports: [
     ConfigModule.forRoot(configModuleOptions),
-    AppLoggerModule
+    AppLoggerModule,
   ],
-  providers: [SystemService,...DatabaseProviders],
-  exports:[SystemService,ConfigModule,...DatabaseProviders,AppLoggerModule],
+  providers: [SystemService,...DatabaseProviders,UploadService],
+  exports:[SystemService,ConfigModule,...DatabaseProviders,AppLoggerModule,
+  
+    UploadService
+  ],
 })
 export class SharedModule {}

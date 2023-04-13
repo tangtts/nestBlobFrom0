@@ -1,5 +1,5 @@
 import { IsPhoneNumber } from 'class-validator';
-import { ParginationParamsDto } from "./../shared/dtos/pagination-params.dto";
+import { ParginationParamsDto } from "../../shared/dtos/pagination-params.dto";
 import {
   Body,
   Controller,
@@ -9,7 +9,12 @@ import {
   Param,
   Post,
   Query,
+  Req,
+  UploadedFile,
+  UseInterceptors,
 } from "@nestjs/common";
+import { UploadDTO } from '../dtos/upload.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { ConfigService } from "@nestjs/config";
 import {
   ApiBearerAuth,
@@ -23,8 +28,9 @@ import {
   ApiResponse,
   ApiTags,
 } from "@nestjs/swagger";
-import { CreateUserDto } from "./dto/create-user.dto";
-import { UserService } from "./services/user.service";
+import { CreateUserDto } from "../dtos/create-user.dto";
+import { UserService } from "../services/user.service";
+import { encryptFileMD5 } from 'src/shared/utils/cryptogram.util';
 
 @ApiTags("用户模块")
 @Controller("/user")
@@ -54,6 +60,22 @@ export class UserController {
   create(@Body() user) {
     return this.userService.create(user);
   }
+
+
+  @ApiOperation({
+    summary: "上传文件",
+  })
+  @Post('upload')
+  @ApiConsumes('multipart/form-data')
+  @UseInterceptors(FileInterceptor('file'))
+  async upload(@Req() req:any,@Body() uploadDto:UploadDTO,@UploadedFile() file:Express.Multer.File){
+   const {data} = await  this.userService.uploadAvatar(file)
+   console.log(data)
+  }
+
+
+
+
 
   @Get("/findAll")
   @ApiOperation({

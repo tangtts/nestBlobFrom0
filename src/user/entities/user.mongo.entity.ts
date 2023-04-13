@@ -40,4 +40,6 @@ export class User extends Common{
 
   @Column()
   role: ObjectId;
+  @Column()
+  salt:string
 }

@@ -3,5 +3,5 @@ import  configration from "./configration";
 
 export const configModuleOptions:ConfigModuleOptions = {
   envFilePath:".env",
-  load:[configration]
+  load:[configration],
 }
